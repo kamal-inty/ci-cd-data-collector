@@ -1,0 +1,23 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # manual trigger support
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Step
+        run: echo "Building project..."
+
+      - name: Test Step
+        run: |
+          echo "Running tests..."
+          exit 1   # force failure
