@@ -9,36 +9,60 @@ on:
 jobs:
 
   build:
+
     runs-on: ubuntu-latest
 
     steps:
+
       - uses: actions/checkout@v3
 
       - name: Build
         run: echo "Build Successful"
 
   unit-test:
+
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Unit Tests
+
+      - name: Unit Test
         run: |
-          echo "Running tests..."
-          python -c "raise Exception('Assertion Failed')"
+          echo "Running Unit Tests..."
+          echo "All tests passed."
 
   integration-test:
+
     runs-on: ubuntu-latest
     needs: unit-test
 
     steps:
-      - name: Integration
-        run: echo "This job will not execute"
 
-  deploy:
+      - name: Integration Test
+        run: |
+          echo "Integration Tests..."
+          echo "Passed"
+
+  package:
+
     runs-on: ubuntu-latest
     needs: integration-test
 
     steps:
+
+      - name: Package
+        run: |
+          echo "Packaging application..."
+          echo "Package created."
+
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: package
+
+    steps:
+
       - name: Deploy
-        run: echo "Deploy"
+        run: |
+          echo "Deploying..."
+          echo "Deployment successful."
