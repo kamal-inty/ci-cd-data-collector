@@ -12,19 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v3
 
       - name: Build
-        run: echo "Building..."
+        run: echo "Build Successful"
 
-  quality-check:
+  unit-test:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-
-      - name: Static Code Analysis
+      - name: Unit Tests
         run: |
-          echo "Running Sonar Analysis..."
-          unknown_command
+          echo "Running tests..."
+          python -c "raise Exception('Assertion Failed')"
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: unit-test
+
+    steps:
+      - name: Integration
+        run: echo "This job will not execute"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: integration-test
+
+    steps:
+      - name: Deploy
+        run: echo "Deploy"
