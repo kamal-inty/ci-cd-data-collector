@@ -4,65 +4,20 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:   # manual trigger support
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: actions/checkout@v3
+      - name: Build Step
+        run: echo "Building project..."
 
-      - name: Build
-        run: echo "Build Successful"
-
-  unit-test:
-
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-
-      - name: Unit Test
+      - name: Test Step
         run: |
-          echo "Running Unit Tests..."
-          echo "All tests passed."
-
-  integration-test:
-
-    runs-on: ubuntu-latest
-    needs: unit-test
-
-    steps:
-
-      - name: Integration Test
-        run: |
-          echo "Integration Tests..."
-          echo "Passed"
-
-  package:
-
-    runs-on: ubuntu-latest
-    needs: integration-test
-
-    steps:
-
-      - name: Package
-        run: |
-          echo "Packaging application..."
-          echo "Package created."
-
-  deploy:
-
-    runs-on: ubuntu-latest
-    needs: package
-
-    steps:
-
-      - name: Deploy
-        run: |
-          echo "Deploying..."
-          echo "Deployment successful."
+          echo "Running tests..."
+          exit 1   # force failure
